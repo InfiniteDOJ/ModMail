@@ -4,6 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ModMail - Discord Ticketing</title>
+
+    <!-- Browser Tab Icon (Favicon) -->
+    <link rel="icon" type="image/png" href="logo.png">
+
     <!-- Tailwind CSS with custom red/dark colors -->
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
     <!-- FontAwesome for standard system-like utility icons -->
@@ -13,9 +17,10 @@
 
     <!-- Navbar -->
     <nav class="flex justify-between items-center px-6 py-4 max-w-6xl mx-auto border-b border-[#222222]">
-        <!-- Top Left Brand with Mail Icon -->
-        <a href="index.html" class="flex items-center space-x-2 font-bold text-base uppercase tracking-wider text-red-500 transition-none">
-            <i class="fa-solid fa-envelope"></i>
+        <!-- Top Left Brand with Custom Logo -->
+        <a href="index.html" class="flex items-center space-x-3 font-bold text-base uppercase tracking-wider text-red-500 transition-none">
+            <img src="assets/logo.png" alt="ModMail Logo" class="h-8 w-auto block" onerror="this.style.display='none'; document.getElementById('fallback-icon').style.display='inline-block';">
+            <i id="fallback-icon" class="fa-solid fa-envelope hidden"></i>
             <span>ModMail</span>
         </a>
         
