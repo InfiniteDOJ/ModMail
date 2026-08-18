@@ -4,12 +4,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ModMail - Discord Ticketing</title>
+    <!-- Tailwind CSS with custom red/dark colors -->
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <!-- FontAwesome for standard system-like utility icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body class="bg-[#111111] text-[#E5E5E5] font-mono selection:bg-red-600 selection:text-white">
 
+    <!-- Navbar -->
     <nav class="flex justify-between items-center px-6 py-4 max-w-6xl mx-auto border-b border-[#222222]">
+        <!-- Top Left Brand with Mail Icon -->
         <a href="index.html" class="flex items-center space-x-2 font-bold text-base uppercase tracking-wider text-red-500 transition-none">
             <i class="fa-solid fa-envelope"></i>
             <span>ModMail</span>
@@ -30,6 +34,26 @@
         </div>
     </nav>
 
+    <!-- DYNAMIC ANNOUNCEMENT BANNER -->
+    <div id="announcement-banner" class="hidden max-w-6xl mx-auto px-6 pt-6">
+        <div id="announcement-card" class="bg-[#1A1A1A] p-4 border flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+            <div class="space-y-1">
+                <div class="flex items-center space-x-2">
+                    <span id="announcement-tag" class="bg-red-600 text-white font-mono text-[10px] uppercase font-bold px-2 py-0.5">UPDATE</span>
+                    <span id="announcement-date" class="text-xs text-[#888888] font-mono">---</span>
+                </div>
+                <h3 id="announcement-title" class="text-sm font-bold uppercase tracking-wide text-white">---</h3>
+                <p id="announcement-message" class="text-xs text-[#A0A0A0] font-sans">---</p>
+            </div>
+            <div id="announcement-link-container" class="shrink-0">
+                <a id="announcement-link" href="#" target="_blank" class="bg-[#222222] hover:bg-[#333333] text-white text-xs font-bold uppercase tracking-wider px-4 py-2 border border-[#444444] inline-block">
+                    View Details
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Hero Section -->
     <header class="flex flex-col items-center text-center px-6 py-16 max-w-4xl mx-auto">
         <h1 class="text-3xl md:text-5xl font-black uppercase tracking-tight mb-4 bg-gradient-to-r from-red-500 via-red-600 to-amber-600 bg-clip-text text-transparent">
             Bridge the Gap Between Staff and Members
@@ -38,6 +62,7 @@
             ModMail allows users to DM the bot to create private support tickets, ensuring organized, logged, and hassle-free moderation.
         </p>
         
+        <!-- Action Control Array -->
         <div class="flex flex-col sm:flex-row flex-wrap justify-center gap-3 mb-12 w-full sm:w-auto">
             <a href="https://discord.com/oauth2/authorize?client_id=1504967896051486760&permissions=8&scope=bot" target="_blank" class="bg-red-600 hover:bg-red-700 text-white text-sm font-bold uppercase tracking-wider px-6 py-3 border border-red-500 transition-none text-center flex items-center justify-center">
                 <i class="fa-brands fa-discord mr-2"></i> Add to Discord
@@ -50,11 +75,13 @@
             </a>
         </div>
 
+        <!-- System Image Display -->
         <div class="w-full max-w-lg bg-[#1A1A1A] border-2 border-[#222222] p-2">
             <img src="https://github.com/InfiniteDOJ/botwebsite/blob/main/48441-email.png?raw=true" alt="ModMail System" class="w-full h-auto block opacity-90">
         </div>
     </header>
 
+    <!-- Features Section -->
     <section id="features" class="max-w-6xl mx-auto px-6 py-12 border-t border-[#222222]">
         <h2 class="text-xl font-bold uppercase tracking-widest text-center mb-10 text-red-500">// System Features</h2>
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -76,6 +103,7 @@
         </div>
     </section>
 
+    <!-- Setup Section -->
     <section id="setup" class="max-w-4xl mx-auto px-6 py-12 border-t border-[#222222]">
         <h2 class="text-xl font-bold uppercase tracking-widest text-center mb-2 text-red-500">// Initialization</h2>
         <p class="text-xs text-[#888888] text-center mb-10 uppercase tracking-wider">Deploying the module to your guild</p>
@@ -96,6 +124,7 @@
         </div>
     </section>
 
+    <!-- Footer -->
     <footer class="bg-[#0A0A0A] text-[#555555] text-xs py-8 px-6 border-t border-[#222222] text-center tracking-wide">
         <p class="mb-2">&copy; 2026 ModMail Bot. Operational.</p>
         <div class="space-x-4 mb-2 flex justify-center items-center">
@@ -109,6 +138,51 @@
         </div>
         <p class="text-[10px] uppercase text-[#444444]">Independent utility. Not affiliated with Discord Inc.</p>
     </footer>
+
+    <!-- Announcement Data File -->
+    <script src="announcements.js"></script>
+
+    <!-- Announcement Engine Script -->
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            if (typeof ANNOUNCEMENT_CONFIG !== 'undefined' && ANNOUNCEMENT_CONFIG.enabled) {
+                const banner = document.getElementById('announcement-banner');
+                const card = document.getElementById('announcement-card');
+                const tag = document.getElementById('announcement-tag');
+                const link = document.getElementById('announcement-link');
+                const linkContainer = document.getElementById('announcement-link-container');
+
+                // Set Text Content
+                document.getElementById('announcement-title').innerText = ANNOUNCEMENT_CONFIG.title;
+                document.getElementById('announcement-date').innerText = ANNOUNCEMENT_CONFIG.date;
+                document.getElementById('announcement-message').innerText = ANNOUNCEMENT_CONFIG.message;
+
+                // Handle Styling Types
+                if (ANNOUNCEMENT_CONFIG.type === 'warning') {
+                    card.className = "bg-[#1A1A1A] p-4 border border-amber-600 flex flex-col md:flex-row justify-between items-start md:items-center gap-4";
+                    tag.className = "bg-amber-600 text-black font-mono text-[10px] uppercase font-bold px-2 py-0.5";
+                } else if (ANNOUNCEMENT_CONFIG.type === 'alert') {
+                    card.className = "bg-red-950/40 p-4 border border-red-600 flex flex-col md:flex-row justify-between items-start md:items-center gap-4";
+                    tag.className = "bg-red-600 text-white font-mono text-[10px] uppercase font-bold px-2 py-0.5";
+                } else {
+                    card.className = "bg-[#1A1A1A] p-4 border border-red-600/50 flex flex-col md:flex-row justify-between items-start md:items-center gap-4";
+                    tag.className = "bg-red-600 text-white font-mono text-[10px] uppercase font-bold px-2 py-0.5";
+                }
+
+                // Handle Link Visibility via linktype
+                if (ANNOUNCEMENT_CONFIG.linktype && ANNOUNCEMENT_CONFIG.linktype.toLowerCase() === 'yes') {
+                    linkContainer.style.display = 'block';
+                    link.href = ANNOUNCEMENT_CONFIG.linkUrl;
+                    link.innerText = ANNOUNCEMENT_CONFIG.linkText || "View Details";
+                } else {
+                    linkContainer.style.display = 'none';
+                }
+
+                // Display Banner
+                banner.classList.remove('hidden');
+            }
+        });
+    </script>
 
 </body>
 </html>
